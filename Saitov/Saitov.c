@@ -12,7 +12,7 @@ struct node* searchel = NULL;
 struct node* parent = NULL;
 struct node *tmp = NULL;
 
-int count(struct node *n)
+int count(struct node *n) /*кол-во узлов*/
 {
     int c = 1;
 
@@ -26,7 +26,7 @@ int count(struct node *n)
      }
 }
 
-int countLeaves(struct node* node)
+int countLeaves(struct node* node) /*кол-во листьев*/
 {
 
 
@@ -38,17 +38,15 @@ int countLeaves(struct node* node)
     }
     return countLeaves(node->left) + countLeaves(node->right);
 }
-int isBST(struct node* root)
+int isBST(struct node* root) /*является ли деревом поиска*/
 {
     static struct node *prev = NULL;
 
-    // traverse the tree in inorder fashion and keep track of prev node
     if (root)
     {
         if (!isBST(root->left))
           return 0;
 
-        // Allows only distinct valued nodes
         if (prev != NULL && root->value <= prev->value)
           return 0;
 
@@ -100,7 +98,7 @@ void search(struct node** tree, int value) {
 }
 
 
-void search1 (struct node** tree, int value)
+void search1 (struct node** tree, int value) /*поиск елемента без потомка*/
 {
 	if(!(*tree)) {
 		/*tree doesn't exist or we've reached end of tree */
@@ -122,14 +120,14 @@ void search1 (struct node** tree, int value)
                 parent = tmp;
                 return;
             }
-            else //if (value < (*tree)->value)
+            else 
             {
                 tmp = *tree;
                 search1(&((*tree)->left), value);
                 search1(&((*tree)->right), value);
             }
         }
-        else //if (value < (*tree)->value)
+        else 
         {
             tmp = *tree;
             search1(&((*tree)->left), value);
@@ -138,7 +136,7 @@ void search1 (struct node** tree, int value)
     }
 }
 
-
+/*поиск родителя елемента, не имеющего ровесника*/
 void search2 (struct node** tree, int value) {
 	if(!(*tree))
 		return;
@@ -160,14 +158,14 @@ void search2 (struct node** tree, int value) {
                 return;
             }
 
-            else //if (value < (*tree)->value)
+            else 
             {
                 tmp = *tree;
                 search2(&((*tree)->left), value);
                 search2(&((*tree)->right), value);
             }
         }
-        else //if (value < (*tree)->value)
+        else 
         {
             tmp = *tree;
             search2(&((*tree)->left), value);
@@ -293,7 +291,6 @@ int commands (int a){
             parent = NULL;
             tmp = tree;
             search2 (&tree, M);
-            //printf("\n%d ", parent->value);
             if (parent != NULL)
             {
             if (!parent->left)
